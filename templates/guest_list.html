@@ -1,0 +1,109 @@
+{% extends "index.html" %}
+{% from "bootstrap5/form.html" import render_form %}
+{% block title %}
+    Guest List
+{% endblock %}
+
+{% block main %}
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-8">
+                <div class="card p-3 rounded-4 overflow-hidden bg-white bg-opacity-50">
+                    <h3 class="mb-1">{{ event.title }}</h3>
+                    {% if event.date %}
+                        <p class="text-muted">
+                            {{ event.date }}
+                        </p>
+                    {% endif %}
+
+                    <table class="table table-striped align-middle mb-0">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Title</th>
+                                <th>Link</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for gift in gifts %}
+                                <tr>
+                                    <td>{{ loop.index }}</td>
+                                    <td>{{ gift.title }}</td>
+                                    <td>
+                                        {% if gift.link %}
+                                            <a href="{{ gift.link }}"
+                                               target="_blank"
+                                               rel="noopener">
+                                                Link
+                                            </a>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if gift.is_reserved %}
+                                            <button class="btn btn-outline-secondary btn-sm" disabled>
+                                                Reserved
+                                            </button>
+                                        {% else %}
+                                            <button type="button" class="btn btn-success btn-sm"
+                                                  data-bs-toggle="modal" data-bs-target="#reserveModal"
+                                                  data-title="{{ gift.title }}"
+                                                  data-action="{{ url_for('reservation', share_token=event.share_token, gift_id=gift.id) }}">
+                                                Reserve
+                                            </button>
+                                        {% endif %}
+                                     </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <div class="modal fade" id="reserveModal" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <form method="post" id="reserveForm">
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">
+                                            Gift reservation
+                                        </h5>
+                                        <button type="button"
+                                                class="btn-close"
+                                                data-bs-dismiss="modal"
+                                                aria-label="Close">
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>You choose: <strong id="reserveTitle"></strong></p>
+                                        <label for="reserveEmail" class="form-label">
+                                            Would you like to get the details via email?
+                                        </label>
+                                        <input type="email" class="form-control" id="reserveEmail"
+                                           name="email" placeholder="Your email" required>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-success order-2">
+                                            Send details
+                                        </button>
+                                        <button type="submit" name="skip_email" value="1" formnovalidate
+                                              class="btn btn-outline-secondary order-1">
+                                            No, thank you
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <script>
+                        document.getElementById("reserveModal").addEventListener("show.bs.modal", function (event) {
+                        const btn = event.relatedTarget;
+                        document.getElementById("reserveTitle").textContent = btn.dataset.title;
+                        document.getElementById("reserveForm").action = btn.dataset.action;
+                        document.getElementById("reserveEmail").value = "";
+                      });
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
