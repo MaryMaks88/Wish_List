@@ -247,13 +247,13 @@ def delete_event(event_id):
 def edit_gift(gift_id):
 
     form = EditGift()
+    gift = db.session.execute(
+        db.select(Item)
+        .join(Event, Item.event_id == Event.id)
+        .where(Item.id == gift_id, Event.user_id == current_user.id)
+    ).scalar_one_or_none()
 
     if form.validate_on_submit():
-        gift = db.session.execute(
-            db.select(Item)
-            .join(Event, Item.event_id == Event.id)
-            .where(Item.id == gift_id, Event.user_id == current_user.id)
-        ).scalar_one_or_none()
         title = form.title.data
         link = form.link.data
         if title:
@@ -266,7 +266,7 @@ def edit_gift(gift_id):
         flash("Gift updated")
         return redirect(url_for("add_gifts", event_id=gift.event_id))
 
-    return render_template("edit_gift.html", form=form)
+    return render_template("edit_gift.html", form=form, gift=gift)
 
 @app.route("/delete_gift/<int:gift_id>")
 @login_required
