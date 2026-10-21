@@ -31,7 +31,7 @@ login_manager.init_app(app)
 def send_notification_email(email, event, gift):
 
     msg = EmailMessage()
-    msg["Subject"] = f"Subject: Gift reservation for {event.title}"
+    msg["Subject"] = f"Subject: Gift reservation for: {event.title}"
     msg["From"] = MY_EMAIL
     msg["To"] = email
 
