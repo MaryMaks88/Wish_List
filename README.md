@@ -168,7 +168,3 @@ wish_list/
 - Deployment to a hosting service with a production server such as Gunicorn and a persistent database.
 - Automated tests for the routes and the reservation logic.
 - Interface language switching and a password reset by email.
-
-## Security notes
-
-Never commit the `.env` file or the `instance` folder. If an app password was ever shown in a log, a screenshot or a repository, revoke it in the Google account and create a new one.
