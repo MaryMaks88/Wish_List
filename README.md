@@ -59,8 +59,7 @@ The share link does not contain a database id, because ids such as `/list/1`, `/
 ### 4. Forms and security
 
 - Registration, login, new event and gift forms are built with **Flask-WTF** and rendered with Bootstrap-Flask.
-- **CSRF protection** is enabled globally, and the hand-written forms (reserve, rename, delete) include the CSRF token.
-- Actions that change data (reserve, delete, rename) accept only `POST` requests, never plain links.
+- **CSRF protection** is enabled.
 - Secrets (the Gmail address and app password) are read from environment variables loaded from a `.env` file that is excluded from Git.
 
 ### 5. Reserving a gift safely
