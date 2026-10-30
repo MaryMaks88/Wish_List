@@ -1,0 +1,216 @@
+# Translations template for PROJECT.
+# Copyright (C) 2026 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2026-10-30 21:08+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: forms.py:7 forms.py:12
+msgid "Name"
+msgstr ""
+
+#: forms.py:8 forms.py:13
+msgid "Password"
+msgstr ""
+
+#: forms.py:9 templates/index.html:83 templates/register.html:30
+msgid "Register"
+msgstr ""
+
+#: forms.py:14 templates/index.html:86 templates/login.html:29
+msgid "LogIn"
+msgstr ""
+
+#: forms.py:17 forms.py:22 forms.py:27 forms.py:32 templates/add_gifts.html:53
+#: templates/guest_list.html:23
+msgid "Title"
+msgstr ""
+
+#: forms.py:18 forms.py:23
+msgid "Date"
+msgstr ""
+
+#: forms.py:19
+msgid "Create event"
+msgstr ""
+
+#: forms.py:24
+msgid "Edit event"
+msgstr ""
+
+#: forms.py:28 forms.py:33 templates/add_gifts.html:54
+#: templates/add_gifts.html:66 templates/guest_list.html:24
+#: templates/guest_list.html:38
+msgid "Link"
+msgstr ""
+
+#: forms.py:29
+msgid "Add gift"
+msgstr ""
+
+#: forms.py:34
+msgid "Edit gift"
+msgstr ""
+
+#: main.py:119
+msgid "Such name already exist. Pick another one. Or LogIn."
+msgstr ""
+
+#: main.py:144
+msgid "Wrong name or password"
+msgstr ""
+
+#: main.py:188
+msgid "Gift added"
+msgstr ""
+
+#: main.py:219
+msgid "The gift is already reserved"
+msgstr ""
+
+#: main.py:221
+msgid "Thank you! The gift is reserved"
+msgstr ""
+
+#: main.py:225
+msgid "Details have been sent to your email."
+msgstr ""
+
+#: main.py:229
+msgid "Gift reserved, but the email couldn't be sent."
+msgstr ""
+
+#: main.py:250
+msgid "Event updated"
+msgstr ""
+
+#: main.py:261
+msgid "Event deleted"
+msgstr ""
+
+#: main.py:285
+msgid "Gift updated"
+msgstr ""
+
+#: main.py:300
+msgid "Gift deleted"
+msgstr ""
+
+#: templates/add_gifts.html:18 templates/edit_event.html:18
+#: templates/edit_gift.html:17 templates/login.html:17
+#: templates/new_event.html:17 templates/register.html:18
+msgid "Back"
+msgstr ""
+
+#: templates/add_gifts.html:30 templates/index.html:51
+msgid "LogOut"
+msgstr ""
+
+#: templates/add_gifts.html:43
+msgid "Add Gift"
+msgstr ""
+
+#: templates/add_gifts.html:55
+msgid "Edit"
+msgstr ""
+
+#: templates/add_gifts.html:56
+msgid "Remove"
+msgstr ""
+
+#: templates/edit_event.html:30
+msgid "Edit Event"
+msgstr ""
+
+#: templates/edit_gift.html:29
+msgid "Edit Gift"
+msgstr ""
+
+#: templates/guest_list.html:25
+msgid "Status"
+msgstr ""
+
+#: templates/guest_list.html:45
+msgid "Reserved"
+msgstr ""
+
+#: templates/guest_list.html:52
+msgid "Reserve"
+msgstr ""
+
+#: templates/guest_list.html:67
+msgid "Gift reservation"
+msgstr ""
+
+#: templates/guest_list.html:78
+msgid "Would you like to get the details via email?"
+msgstr ""
+
+#: templates/guest_list.html:85
+msgid "Send details"
+msgstr ""
+
+#: templates/guest_list.html:89
+msgid "No, thank you"
+msgstr ""
+
+#: templates/index.html:7
+msgid "Wish List"
+msgstr ""
+
+#: templates/index.html:39
+msgid "Home"
+msgstr ""
+
+#: templates/index.html:67
+msgid "Make every celebration a perfect gift day"
+msgstr ""
+
+#: templates/index.html:69
+msgid ""
+"Create a wish list for your birthday, wedding or any special occasion,\n"
+"                                share one link with friends and family, "
+"and let them pick a gift without\n"
+"                                doubles or guessing."
+msgstr ""
+
+#: templates/index.html:74
+msgid "Create an event and add your gifts"
+msgstr ""
+
+#: templates/index.html:75
+msgid "Share the link with your friends"
+msgstr ""
+
+#: templates/index.html:76
+msgid "They reserve, you stay surprised"
+msgstr ""
+
+#: templates/index.html:79
+msgid "Register or log in to start."
+msgstr ""
+
+#: templates/index.html:105
+msgid "Welcome"
+msgstr ""
+
+#: templates/index.html:133
+msgid "Gifts"
+msgstr ""
+
+#: templates/index.html:146 templates/new_event.html:29
+msgid "New Event"
+msgstr ""
+

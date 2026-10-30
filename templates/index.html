@@ -1,15 +1,13 @@
 <!DOCTYPE html>
 {% from 'bootstrap5/utils.html' import render_messages %}
-<html lang="en">
+<html lang="{{ current_lang }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1, width=device-width">
-    <title>Wish List</title>
+    <title>{{ _('Wish List') }}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
-
-    {{ bootstrap.load_css() }}
 
     <style>
         body {
@@ -38,7 +36,7 @@
                                    class="nav-link active"
                                    aria-current="page"
                                    href="{{ url_for('home') }}">
-                                    Home
+                                    {{ _('Home') }}
                                 </a>
                              </li>
                         </ul>
@@ -50,7 +48,7 @@
                                    class="nav-link active"
                                    aria-current="page"
                                    href="{{ url_for('logout') }}">
-                                    LogOut
+                                    {{ _('LogOut') }}
                                 </a>
                              </li>
                         </ul>
@@ -59,33 +57,33 @@
             </div>
         {% else %}
             <div class="container mt-4">
+                <a href="{{ url_for('set_language', lang='uk') }}" class="btn btn-success">UKR</a>
+                <a href="{{ url_for('set_language', lang='en') }}" class="btn btn-outline-success">ENG</a>
+            </div>
+            <div class="container mt-4">
                 <div class="card p-4 mt-5 rounded-4 overflow-hidden bg-white bg-opacity-50">
                     <div class="row align-items-center g-4">
                         <div class="col-12 col-md-6">
-                            <h3 class="mb-3">Make every celebration a perfect gift day 🎁</h3>
+                            <h3 class="mb-3">{{ _('Make every celebration a perfect gift day') }} 🎁</h3>
                             <p class="mb-1 mt-4">
-                                  Create a wish list for your birthday, wedding or any special occasion,
-                                  share one link with friends and family, and let them pick a gift without
-                                  doubles or guessing.
+                                {{ _('Create a wish list for your birthday, wedding or any special occasion,
+                                share one link with friends and family, and let them pick a gift without
+                                doubles or guessing.') }}
                             </p>
                             <ol class="mb-1 mt-4">
-                                <li>Create an event and add your gifts</li>
-                                <li>Share the link with your friends</li>
-                                <li>They reserve, you stay surprised</li>
+                                <li>{{ _('Create an event and add your gifts') }}</li>
+                                <li>{{ _('Share the link with your friends') }}</li>
+                                <li>{{ _('They reserve, you stay surprised') }}</li>
                             </ol>
                             <p class="mb-1 mt-4">
-                                Register or log in to start.
+                                {{ _('Register or log in to start.') }}
                             </p>
                             <div class="container mt-4">
-                                <a href="{{ url_for('register') }}">
-                                    <button type="button" class="btn btn-success">
-                                        Register
-                                    </button>
+                                <a href="{{ url_for('register') }}" class="btn btn-success">
+                                    {{ _('Register') }}
                                 </a>
-                                <a href="{{ url_for('login') }}">
-                                    <button type="button" class="btn btn-outline-success">
-                                        LogIn
-                                    </button>
+                                <a href="{{ url_for('login') }}" class="btn btn-outline-success">
+                                    {{ _('LogIn') }}
                                 </a>
                             </div>
                         </div>
@@ -104,7 +102,7 @@
 
         {% if current_user.is_authenticated %}
             <div class="container mt-4">
-                <h4 class="mb-3">Welcome, {{ current_user.name }}!</h4>
+                <h4 class="mb-3">{{ _('Welcome') }}, {{ current_user.name }}!</h4>
             </div>
         {% endif %}
 
@@ -132,7 +130,7 @@
                                 <div class="card-body">
                                     <p class="card-text fs-5 mb-3">{{ event.date }}</p>
                                     <a href="{{ url_for('add_gifts', event_id=event.id) }}"
-                                        class="btn btn-success w-100">Gifts</a>
+                                        class="btn btn-success w-100">{{ _('Gifts') }}</a>
                                 </div>
                             </div>
                         </div>
@@ -145,12 +143,13 @@
             {% if current_user.is_authenticated: %}
                 <a href="{{ url_for('new_event') }}">
                     <button type="button" class="btn btn-success">
-                        New Event
+                        {{ _('New Event') }}
                     </button>
                 </a>
             {% endif %}
         </div>
     {% endblock %}
     {{ bootstrap.load_js() }}
+    {{ bootstrap.load_css() }}
 </body>
 </html>

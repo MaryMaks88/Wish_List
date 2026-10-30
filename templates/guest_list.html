@@ -20,9 +20,9 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Title</th>
-                                <th>Link</th>
-                                <th>Status</th>
+                                <th>{{ _('Title') }}</th>
+                                <th>{{ _('Link') }}</th>
+                                <th>{{ _('Status') }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -35,21 +35,21 @@
                                             <a href="{{ gift.link }}"
                                                target="_blank"
                                                rel="noopener">
-                                                Link
+                                                {{ _('Link') }}
                                             </a>
                                         {% endif %}
                                     </td>
                                     <td>
                                         {% if gift.is_reserved %}
                                             <button class="btn btn-outline-secondary btn-sm" disabled>
-                                                Reserved
+                                                {{ _('Reserved') }}
                                             </button>
                                         {% else %}
                                             <button type="button" class="btn btn-success btn-sm"
                                                   data-bs-toggle="modal" data-bs-target="#reserveModal"
                                                   data-title="{{ gift.title }}"
                                                   data-action="{{ url_for('reservation', share_token=event.share_token, gift_id=gift.id) }}">
-                                                Reserve
+                                                {{ _('Reserve') }}
                                             </button>
                                         {% endif %}
                                      </td>
@@ -64,7 +64,7 @@
                                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                                     <div class="modal-header">
                                         <h5 class="modal-title">
-                                            Gift reservation
+                                            {{ _('Gift reservation') }}
                                         </h5>
                                         <button type="button"
                                                 class="btn-close"
@@ -75,18 +75,18 @@
                                     <div class="modal-body">
                                         <p>You choose: <strong id="reserveTitle"></strong></p>
                                         <label for="reserveEmail" class="form-label">
-                                            Would you like to get the details via email?
+                                            {{ _('Would you like to get the details via email?') }}
                                         </label>
                                         <input type="email" class="form-control" id="reserveEmail"
                                            name="email" placeholder="Your email" required>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="submit" class="btn btn-success order-2">
-                                            Send details
+                                            {{ _('Send details') }}
                                         </button>
                                         <button type="submit" name="skip_email" value="1" formnovalidate
                                               class="btn btn-outline-secondary order-1">
-                                            No, thank you
+                                            {{ _('No, thank you') }}
                                         </button>
                                     </div>
                                 </form>

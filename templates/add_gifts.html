@@ -15,7 +15,7 @@
                            class="nav-link active"
                            aria-current="page"
                            href="{{ url_for('home') }}">
-                            Back
+                            {{ _('Back') }}
                         </a>
                      </li>
                 </ul>
@@ -27,7 +27,7 @@
                            class="nav-link active"
                            aria-current="page"
                            href="{{ url_for('logout') }}">
-                            LogOut
+                            {{ _('LogOut') }}
                         </a>
                      </li>
                 </ul>
@@ -40,7 +40,7 @@
             <div class="col-12 col-lg-8">
                 <div class="card p-4 rounded-4 overflow-hidden bg-white bg-opacity-50">
                     <h2 class="mb-3">{{ event.title }}</h2>
-                    <h4 class="mb-3">Add Gift</h4>
+                    <h4 class="mb-3">{{ _('Add Gift') }}</h4>
                     {{ render_form(form, novalidate=True) }}
                 </div>
 
@@ -50,10 +50,10 @@
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">Title</th>
-                                    <th scope="col">Link</th>
-                                    <th scope="col">Edit</th>
-                                    <th scope="col">Remove</th>
+                                    <th scope="col">{{ _('Title') }}</th>
+                                    <th scope="col">{{ _('Link') }}</th>
+                                    <th scope="col">{{ _('Edit') }}</th>
+                                    <th scope="col">{{ _('Remove') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -63,7 +63,7 @@
                                         <td>{{ gift.title }}</td>
                                         <td>
                                             {% if gift.link %}
-                                                <a href="{{ gift.link }}" target="_blank" rel="noopener">Link</a>
+                                                <a href="{{ gift.link }}" target="_blank" rel="noopener">{{ _('Link') }}</a>
                                             {% endif %}
                                         </td>
                                         <td>

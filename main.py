@@ -3,7 +3,7 @@ import os
 import smtplib
 from dotenv import load_dotenv
 from email.message import EmailMessage
-from flask import Flask, render_template, redirect, url_for, flash, request
+from flask import Flask, render_template, redirect, url_for, flash, request, session
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Integer, String, Boolean, Text, Column, Date
 from flask_bootstrap import Bootstrap5
@@ -11,6 +11,8 @@ from flask_login import UserMixin, LoginManager, login_user, current_user, logou
 from werkzeug.security import generate_password_hash, check_password_hash
 from forms import RegisterForm, LogInForm, NewEvent, AddGift, EditEvent, EditGift
 from flask_wtf.csrf import CSRFProtect
+from flask_babel import Babel, _
+from flask_babel import get_locale as babel_get_locale
 
 load_dotenv()
 
@@ -19,14 +21,21 @@ MY_EMAIL = os.environ.get("my_email")
 SECRET_KEY = os.environ.get("secret_key")
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = SECRET_KEY
+app.config["SECRET_KEY"] = SECRET_KEY
+app.config["BABEL_DEFAULT_LOCAL"] = "en"
+LANGUAGES = ["uk", "en"]
+
+def get_locale():
+    return session.get("lang") or request.accept_languages.best_match(LANGUAGES) or "en"
+
+babel = Babel(app, locale_selector=get_locale)
+
 Bootstrap5(app)
 csrf = CSRFProtect(app)
 
+
 login_manager = LoginManager()
 login_manager.init_app(app)
-
-
 
 def send_notification_email(email, event, gift):
 
@@ -91,13 +100,23 @@ def home():
 
     return render_template("index.html")
 
+@app.context_processor
+def inject_lang():
+    return {"current_lang": str(babel_get_locale())}
+
+@app.route("/set_language/<lang>")
+def set_language(lang):
+    if lang in LANGUAGES:
+        session["lang"] = lang
+    return redirect(request.referrer or url_for("home"))
+
 @app.route("/register", methods=["GET", "POST"])
 def register():
     form = RegisterForm()
     if form.validate_on_submit():
         user_exists = db.session.execute(db.select(User).where(User.name == form.name.data)).scalar()
         if user_exists:
-            flash("Such name already exist. Pick another one. Or LogIn.")
+            flash(_("Such name already exist. Pick another one. Or LogIn."))
             return redirect(url_for('register'))
 
         new_user = User(
@@ -122,7 +141,7 @@ def login():
             login_user(user)
             return redirect(url_for("home"))
         else:
-            flash("Wrong name or password")
+            flash(_("Wrong name or password"))
             return redirect(url_for("login"))
 
     return render_template("login.html", form=form)
@@ -166,7 +185,7 @@ def add_gifts(event_id):
 
         db.session.add(gift)
         db.session.commit()
-        flash("Gift added")
+        flash(_("Gift added"))
         return redirect(url_for("add_gifts", event_id=event_id))
 
     gifts = db.session.execute(db.select(Item).where(Item.event_id == event_id)).scalars()
@@ -197,17 +216,17 @@ def reservation(share_token, gift_id):
     db.session.commit()
 
     if result.rowcount == 0:
-        flash("The gift is already reserved")
+        flash(_("The gift is already reserved"))
     else:
-        flash("Thank you! The gift is reserved")
+        flash(_("Thank you! The gift is reserved"))
         if email:
             try:
                 send_notification_email(email, event, gift)
-                flash("Details have been sent to your email.")
+                flash(_("Details have been sent to your email."))
             except Exception as e:
                 app.logger.exception("Email failed")
                 print("EMAIL ERROR:", repr(e))
-                flash("Gift reserved, but the email couldn't be sent.")
+                flash(_("Gift reserved, but the email couldn't be sent."))
 
     return redirect(url_for("guest_list", share_token=share_token))
 
@@ -228,7 +247,7 @@ def edit_event(event_id):
             event.date = date
             db.session.commit()
 
-        flash("Event updated")
+        flash(_("Event updated"))
         return redirect(url_for("home"))
 
     return render_template("edit_event.html", form=form)
@@ -239,7 +258,7 @@ def delete_event(event_id):
     event = Event.query.filter_by(id=event_id, user_id=current_user.id).first_or_404()
     db.session.delete(event)
     db.session.commit()
-    flash("Event deleted")
+    flash(_("Event deleted"))
     return redirect(url_for("home"))
 
 @app.route("/edit_gift/<int:gift_id>", methods=["GET", "POST"])
@@ -263,7 +282,7 @@ def edit_gift(gift_id):
             gift.link = link
             db.session.commit()
 
-        flash("Gift updated")
+        flash(_("Gift updated"))
         return redirect(url_for("add_gifts", event_id=gift.event_id))
 
     return render_template("edit_gift.html", form=form, gift=gift)
@@ -278,7 +297,7 @@ def delete_gift(gift_id):
     ).scalar_one_or_none()
     db.session.delete(gift)
     db.session.commit()
-    flash("Gift deleted")
+    flash(_("Gift deleted"))
     return redirect(url_for("add_gifts", event_id=gift.event_id))
 
 if __name__ == "__main__":
