@@ -89,7 +89,7 @@ class Item(db.Model):
     id = Column(Integer, primary_key=True, nullable=False)
     event_id = Column(Integer, db.ForeignKey("events.id"), nullable=False)
     title = Column(Text, nullable=False)
-    link = Column(String(250), nullable=False)
+    link = Column(Text, nullable=False)
     is_reserved = Column(Boolean, nullable=False, default=False)
 
 
