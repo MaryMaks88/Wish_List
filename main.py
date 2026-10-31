@@ -59,7 +59,12 @@ def send_notification_email(email, event, gift):
 def load_user(user_id):
     return db.session.get(User, int(user_id))
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///wishlist.db"
+uri = os.environ.get("DB_URI") or "sqlite:///wishlist.db"
+
+if uri.startswith("postgres://"):
+    uri = uri.replace("postgres://", "postgresql://", 1)
+
+app.config["SQLALCHEMY_DATABASE_URI"] = uri
 db = SQLAlchemy(app)
 
 class User(UserMixin, db.Model):
